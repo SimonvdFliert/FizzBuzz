@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Project By Simon van de Fliert</title>
+    <title>FizzBuzz: A Coding Project By Simon van de Fliert</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +23,7 @@
 <!--  ====== Nav Section ========= -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"> <img src="img/Placeholder Logo.png" class="d-inline-block align-text-top" alt="Logo" width="30" height="24"> App Name</a>
+            <a class="navbar-brand" href="#"> <img src="img/Placeholder Logo.png" class="d-inline-block align-text-top" alt="Logo" width="30" height="24"> FizzBuzz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,7 +40,7 @@
                         <a class="nav-link active" aria-current="page" href="code.html">The Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://github.com/SimonvdFliert/">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/SimonvdFliert/FizzBuzz">Git Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="#">About</a>
@@ -53,21 +53,116 @@
     <!--  ====== Main Section ========= -->
     <main class="flex-shrink-0">
         <div class="container py-4 px-5 mt-5">
-            <h2 class="border-1 border-bottom border-dark"> The Code for APP NAME</h2>
+            <h2 class="border-1 border-bottom border-dark"> The Javascript Code for FizzBuzz</h2>
             <div class="row row-cols-1 row-cols-lg-2">
                 <div class="col-lg-8">
                     <pre class="line-numbers"><code class="language-javascript">
-                        // Call Hello World
-                        function helloWorld(){
-                            alert("hello World");
+                        // Get values from the page
+                        function getValues(){
+                            let fizzValue = document.getElementById("fizzValue").value;
+                            let buzzValue = document.getElementById("buzzValue").value;
+
+                            // attempt parse into Integers
+                            fizzValue = parseInt(fizzValue);
+                            buzzValue = parseInt(buzzValue);
+
+                            // if inputs are integer, continue with the program
+                            if(Number.isInteger(fizzValue) && Number.isInteger(buzzValue)){
+                                let results = createResults(fizzValue, buzzValue);
+                                displayResults(results);
+                            }
+                            else{
+                                alert("A non-number symbol was detected. Please enter a number as value.");
+                            }
+                        }
+
+                        //Create an array with all numbers between the start value and end value
+                        function createResults(fizzValue, buzzValue){
+                            let results = []
+                            let fizzingValue = 3;
+                            let buzzingValue = 5;
+
+                            for(let i = fizzValue; i <= buzzValue; i++){
+                            
+                                // Check if value is a multiple of 3, 5, both or neither
+                                if(i % fizzingValue == 0 && i % buzzingValue == 0 ){
+                                    
+                                    results.push("FizzBuzz");
+                                }
+                                else if(i % fizzingValue == 0){
+                                    
+                                    results.push("Fizz");
+                                }
+                                else if (i % buzzingValue == 0){
+                                    
+                                    results.push("Buzz");
+                                }
+                                else{
+                                    results.push(i);
+                                }  
+                            }
+                            return results;
+                        }
+
+                        //Display the results on the screen
+                        function displayResults(results){
+
+                            //get the table body element from the page
+                            let tableBody = document.getElementById("results");
+
+                            //get the template row
+                            let templateRow = document.getElementById("fizzbuzzTemplate");
+
+                            //clear the table first
+                            tableBody.innerHTML = "";
+
+                            for (let i = 0; i < results.length; i += 5) {
+                                
+                                let tableRow = document.importNode(templateRow.content, true)
+
+                                let rowCols = tableRow.querySelectorAll("td");
+                                
+                                rowCols[0].classList.add(results[i]);
+                                rowCols[0].textContent = results[i];
+                                
+                                rowCols[1].classList.add(results[i + 1]);
+                                rowCols[1].textContent = results[i+1];
+                                        
+                                rowCols[2].classList.add(results[i + 2]);
+                                rowCols[2].textContent = results[i+2];
+                                
+                                rowCols[3].classList.add(results[i + 3]);
+                                rowCols[3].textContent = results[i+3];
+                                
+                                rowCols[4].classList.add(results[i + 4]);
+                                rowCols[4].textContent = results[i+4];
+
+                                tableBody.appendChild(tableRow);
+                            }
                         }
                     </code> 
                     </pre>
                 </div>
                 <div class="col-lg-4">
-                    <p>The Code is structered in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hello World is a function that displays an alert with a message of "Hello World"</p>
+                    <p>The Javscript Code is structered in several functions, those being "getValues", "createResults", and "displayResults". We go through them below.</p>
+                    <h5>getValues</h5>
+                    <p>The getValues function retrieves the input values given by the user, which are then stored in variables for later use. 
+                        The values stored in the variables are transformed into integers. If the user inputs something that cannot be transformed, like a string, then the value stored is null (NaN).
+                        The function then checks if the values stored are indeed integers, afterwhich it calls the other functions.
+                        If the values are null, then an alert is shown on screen asking the user to input integers.</p>
+
+                    <h5>createResults</h5>
+                    <p>In this function we apply the fizz and the buzz to our dataset. We initialize our fizz and buzz values to 3 and 5, after which we loop through the range 
+                        of values given by the user. If a multiple is found of both the fizz and buzz value, then the number is replaced with "FizzBuzz". If a multiple is found of 
+                        the fizz value, then the number is replaced with "Fizz". Similarly, if a multiple of the buzz value is found, then the number is replaced with "Buzz". If no multiple 
+                        of these values are found then the number is stored in the array. Finally, the array is returned to "getValues".
+                    </p>
+
+                    <h5>displayResults</h5>
+                    <p>This function is a very interesting one. In the HTML section of the page we have added a template of a table. This template is retrieved by its ID, after which the 
+                        a for loop iterates over the results array with increments of five. The five values are stored in the columns for the designated row and a class is given to them.
+                        Each class has a different color, which can be seen when testing the application. 
+                    </p>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 :root{
-    --primary-color: #1d5888;
-    --secondary-color: #ff993b;
+    --primary-color: #000000;
+    --secondary-color: #f10000;
     --dark-color: #292929;
     --white-color: #dff3e4;
 }
@@ -55,6 +55,21 @@ footer .social>a:hover{
     color: var(--secondary-color)
 }
 
+.Fizz{
+    color: darkgreen;
+    font-weight: bold;
+}
+
+.Buzz{
+    color: darkblue;
+    font-weight: bold;
+}
+
+.FizzBuzz{
+    color: red;
+    font-weight: bold;
+}
+
 code[class*="language-"],
         pre[class*="language-"]{
             white-space: pre-wrap;
@@ -62,8 +77,14 @@ code[class*="language-"],
             word-wrap: break-word;
         }
 
-
-
 main>.container {
     padding: 60px 15px 0;
 }
+
+@media (max-width:994px) {
+
+    .border-end
+    {
+      border:0px solid !important
+      }
+    }
